@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
+	"net/url"
 )
 
 func main() {
@@ -12,7 +14,19 @@ func main() {
 
 		id := c.Query("name")
 
-		path := "http://www.omdbapi.com/?t=" + id + "&apikey=BanMePlz"
+		path, err := url.Parse("http://www.omdbapi.com/")
+		
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		query := path.Query()
+
+		query.Add("apikey", "BanMePlz")
+		query.Add("t", id)
+		path.RawQuery = query.Encode()
+
+		// ?t=" + id + "&apikey=BanMePlz"
 
 		fmt.Println(path)
 
