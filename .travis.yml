@@ -1,0 +1,11 @@
+sudo: false
+
+language: go
+
+install: true
+
+before_script:
+  - dep ensure
+
+script:
+  - go build
