@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/calshius/go-movie-api/scrape"
 	"github.com/gin-gonic/gin"
-	"log"
-	"net/url"
 )
 
 func main() {
@@ -14,27 +13,13 @@ func main() {
 
 		id := c.Query("name")
 
-		path, err := url.Parse("http://www.omdbapi.com/")
-		
-		if err != nil {
-			log.Fatal(err)
-		}
+		omdbDetails := movieapi.FetchOMDBDetails(id)
 
-		query := path.Query()
+		tmdbResult := movieapi.FetchMovieDetails(omdbDetails.ImdbID)
 
-		query.Add("apikey", "BanMePlz")
-		query.Add("t", id)
-		path.RawQuery = query.Encode()
+		fmt.Println(tmdbResult)
 
-		// ?t=" + id + "&apikey=BanMePlz"
-
-		fmt.Println(path)
-
-		resp := fetchMovieDetails(path)
-
-		fmt.Println(resp)
-
-		c.JSON(200, resp)
+		c.JSON(200, tmdbResult)
 	})
 
 	router.Run(":8080")
