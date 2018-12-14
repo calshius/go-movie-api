@@ -29,7 +29,7 @@ and this will start the application:
  - using env:   export GIN_MODE=release
  - using code:  gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] POST   /movie                    --> main.main.func1 (3 handlers)
+[GIN-debug] GET   /movie                    --> main.main.func1 (3 handlers)
 [GIN-debug] Listening and serving HTTP on :8080
 ```
 
@@ -38,7 +38,7 @@ Now that the api has started you can query it like so:
 Profitable movie:
 
 ```bash
-curl -s -X POST http://localhost:8080/movie?name=avengers | python -m json.tool
+curl -s -X GET http://localhost:8080/movie?name=avengers | python -m json.tool
 {
     "Percentage": 690,
     "Profit": 1299557910,
@@ -53,7 +53,7 @@ curl -s -X POST http://localhost:8080/movie?name=avengers | python -m json.tool
 Lossly movie:
 
 ```bash
-curl -s -X POST http://localhost:8080/movie?name=the+room | python -m json.tool
+curl -s -X GET http://localhost:8080/movie?name=the+room | python -m json.tool
 {
     "Loses": 5998200,
     "Percentage": 333333,

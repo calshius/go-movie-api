@@ -33,8 +33,8 @@ func (m Movie) MarshalJSON() ([]byte, error) {
 		e := m.Revenue - m.Budget
 		return json.Marshal(struct {
 			MovieWithPercentages
-			Percentage float64 
-			Profit     int
+			Percentage float64 `json:"percentage"`
+			Profit     int     `json:"profit"`
 		}{
 			MovieWithPercentages: MovieWithPercentages(m),
 			Percentage:           p,
@@ -47,8 +47,8 @@ func (m Movie) MarshalJSON() ([]byte, error) {
 		l := m.Budget - m.Revenue
 		return json.Marshal(struct {
 			MovieWithPercentages
-			Percentage float64
-			Loses      int
+			Percentage float64	`json:"percentage"`
+			Loses      int		`json:"loses"`
 		}{
 			MovieWithPercentages: MovieWithPercentages(m),
 			Percentage:           p,

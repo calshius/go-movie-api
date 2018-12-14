@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"github.com/calshius/go-movie-api/scrape"
 	"github.com/gin-gonic/gin"
 )
@@ -9,9 +10,11 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.POST("/movie", func(c *gin.Context) {
+	router.GET("/movie", func(c *gin.Context) {
 
 		id := c.Query("name")
+
+		id = strings.Replace(id, " ", "+", -1)
 
 		omdbDetails := movieapi.FetchOMDBDetails(id)
 
