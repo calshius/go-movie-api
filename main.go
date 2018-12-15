@@ -1,14 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"github.com/calshius/go-movie-api/scrape"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
+
+	router.Use(cors.Default())
 
 	router.GET("/movie", func(c *gin.Context) {
 
@@ -19,8 +21,6 @@ func main() {
 		omdbDetails := movieapi.FetchOMDBDetails(id)
 
 		tmdbResult := movieapi.FetchMovieDetails(omdbDetails.ImdbID)
-
-		fmt.Println(tmdbResult)
 
 		c.JSON(200, tmdbResult)
 	})
